@@ -1,0 +1,10 @@
+function norm = LPNorm(I1, p)
+%LPNORM Finds the L P norm of a matrix
+
+I1_vec = I1(:);
+
+norm = sum(abs(I1_vec).^p)
+
+
+end
+

@@ -1,8 +1,14 @@
+% This file implements the auto pre-processing step
+% The image is first automatically white balanced using the gray world
+% assumption on the 5% of the brightest pixel on each color channel. Then,
+% the contrast of the image is automatically stretched using 0.4% as the
+% lower limit and 99% as the higher limit
 function out_img = autopreprocess(in_img)
 out_img = autowhitebal(in_img);
 out_img = autocontrastadj(out_img);
 end
 
+% This function implements auto white balance
 function out_img = autowhitebal(in_img)
 out_img = zeros(size(in_img));
 Kvals = zeros(3,1);
@@ -17,6 +23,7 @@ out_img(:,:,2) = in_img(:,:,2);
 out_img(:,:,3) = (Kvals(2)/Kvals(3)).*in_img(:,:,3);
 end
 
+% This function implements auto contrast stretch
 function out_img = autocontrastadj(in_img)
-out_img = imadjust(in_img,stretchlim(in_img),[]);
+out_img = imadjust(in_img,stretchlim(in_img, [0.004 0.99]),[]);
 end

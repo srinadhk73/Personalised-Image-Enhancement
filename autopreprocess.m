@@ -3,13 +3,14 @@
 % assumption on the 5% of the brightest pixel on each color channel. Then,
 % the contrast of the image is automatically stretched using 0.4% as the
 % lower limit and 99% as the higher limit
-function out_img = autopreprocess(in_img)
-out_img = autowhitebal(in_img);
-out_img = autocontrastadj(out_img);
+function [out_img, autoparams] = autopreprocess(in_img)
+[out_img, Kvals] = autowhitebal(in_img);
+[out_img, con_lims] = autocontrastadj(out_img);
+autoparams = [Kvals; con_lims];
 end
 
 % This function implements auto white balance
-function out_img = autowhitebal(in_img)
+function [out_img, Kvals] = autowhitebal(in_img)
 out_img = zeros(size(in_img));
 Kvals = zeros(3,1);
 for i = 1:3
@@ -24,6 +25,10 @@ out_img(:,:,3) = (Kvals(2)/Kvals(3)).*in_img(:,:,3);
 end
 
 % This function implements auto contrast stretch
-function out_img = autocontrastadj(in_img)
-out_img = imadjust(in_img,stretchlim(in_img, [0.004 0.99]),[]);
+function [out_img, con_lims] = autocontrastadj(in_img)
+out_img = zeros(size(in_img));
+con_lims = stretchlim(rgb2gray(in_img),[0.004 0.99]);
+out_img(:,:,1) = imadjust(in_img(:,:,1),con_lims,[]);
+out_img(:,:,2) = imadjust(in_img(:,:,2),con_lims,[]);
+out_img(:,:,3) = imadjust(in_img(:,:,3),con_lims,[]);
 end

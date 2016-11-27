@@ -1,0 +1,16 @@
+function K = computeKMatrix(alpha, dataset)
+%This function computes the K matrix given an input of alpha, which are the
+%weights of the distance metrix, and the dataset of images. The dataset is
+%a structure of 5000 images
+
+K = zeros(size(dataset,1));
+
+for i = 1:size(dataset,1)
+    for j = i:size(dataset,1)
+        D(i,j) = 
+        K(j,i) = K(i,j)
+    end
+end
+
+end
+

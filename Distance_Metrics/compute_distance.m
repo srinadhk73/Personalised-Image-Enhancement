@@ -7,13 +7,13 @@ function distance_vector = compute_distance(I1, I2)
 
 %Resize the images so that they are the same size. Make the small image the
 %same size as the bigger image. Assuming an RGB is input.
-if length(I1(:)) > length(I2(:))
-    [numRows, numCols, ~] = size(I1);
-    I2 = imresize(I2, [numRows, numCols]);
-else
-    [numRows, numCols, ~] = size(I2);
-    I1 = imresize(I1, [numRows, numCols]);
-end
+%if length(I1(:)) > length(I2(:))
+ %   [numRows, numCols, ~] = size(I1);
+  %  I2 = imresize(I2, [numRows, numCols]);
+%else
+ %   [numRows, numCols, ~] = size(I2);
+  %  I1 = imresize(I1, [numRows, numCols]);
+%end
 
 %% Color Image Distance Metric
 

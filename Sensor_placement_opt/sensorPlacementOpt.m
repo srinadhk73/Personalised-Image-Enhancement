@@ -5,6 +5,7 @@ function [ opt_ind ] = sensorPlacementOpt(K, num_img)
 opt_ind = zeros(num_img, 1);
 SU = zeros(size(K,1),1);
 for n = 1:num_img
+    n
     maxf = realmin;
     for i = 1:size(K,1)
         if (SU(i)==0)

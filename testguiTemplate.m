@@ -51,16 +51,17 @@ function testguiTemplate_OpeningFcn(hObject, eventdata, handles, varargin)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 % varargin   command line arguments to testguiTemplate (see VARARGIN)
-handles.outparams = zeros(1, 7);
+handles.outparams = zeros(1, 30);
 handles.pageCount = 1;
-temp = loadImsAndParams(1);
-handles.testSet1 = temp.testSet;
-temp = loadImsAndParams(2);
-handles.testSet2 = temp.testSet;
+[orig, cust, goog, PS] = loadImCellArrays();
+handles.original = orig;
+handles.custom = cust;
+handles.google = goog;
+handles.photoshop = PS;
 axes(handles.axes1);
-imshow(handles.testSet1.images{handles.pageCount}, []);
+imshow(handles.custom{handles.pageCount}, []);
 axes(handles.axes2);
-imshow(handles.testSet2.images{handles.pageCount}, []);
+imshow(handles.original{handles.pageCount}, []);
 % Choose default command line output for testguiTemplate
 handles.output = hObject;
 
@@ -89,9 +90,19 @@ function pushbutton1_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 handles.outparams(handles.pageCount) = 1;
 axes(handles.axes1);
-imshow(makeBorder(handles.testSet1.images{handles.pageCount}, 10), []);
+currCustom = mod(handles.pageCount, 10);
+if currCustom == 0
+    currCustom = 10;
+end
+imshow(makeBorder(handles.custom{currCustom}, 10), []);
 axes(handles.axes2);
-imshow(handles.testSet2.images{handles.pageCount}, []);
+if handles.pageCount <= 10
+    imshow(handles.original{handles.pageCount}, []);
+elseif handles.pageCount <= 20
+    imshow(handles.google{handles.pageCount - 10}, []);
+else
+    imshow(handles.photoshop{handles.pageCount - 20}, []);
+end
 guidata(hObject, handles);
 checkdone(handles)
 
@@ -103,9 +114,19 @@ function pushbutton2_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 handles.outparams(handles.pageCount) = -1;
 axes(handles.axes1);
-imshow(handles.testSet1.images{handles.pageCount}, []);
+currCustom = mod(handles.pageCount, 10);
+if currCustom == 0
+    currCustom = 10;
+end
+imshow(handles.custom{currCustom}, []);
 axes(handles.axes2);
-imshow(makeBorder(handles.testSet2.images{handles.pageCount}, 10), []);
+if handles.pageCount <= 10
+    imshow(makeBorder(handles.original{handles.pageCount}, 10), []);
+elseif handles.pageCount <= 20
+    imshow(makeBorder(handles.google{handles.pageCount - 10}, 10), []);
+else
+    imshow(makeBorder(handles.photoshop{handles.pageCount - 20}, 10), []);
+end
 guidata(hObject, handles);
 checkdone(handles)
 
@@ -117,10 +138,20 @@ function pushbutton3_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 handles.pageCount = handles.pageCount - 1;
 if handles.pageCount >= 1
+    currCustom = mod(handles.pageCount, 10);
+    if currCustom == 0
+        currCustom = 10;
+    end
     axes(handles.axes1);
-    imshow(handles.testSet1.images{handles.pageCount}, []);
+    imshow(handles.custom{currCustom}, []);
     axes(handles.axes2);
-    imshow(handles.testSet2.images{handles.pageCount}, []);
+    if handles.pageCount <= 10
+        imshow(handles.original{handles.pageCount}, []);
+    elseif handles.pageCount <= 20
+        imshow(handles.google{handles.pageCount - 10}, []);
+    else
+        imshow(handles.photoshop{handles.pageCount - 20}, []);
+    end
 else
     handles.pageCount = 1;
 end
@@ -132,19 +163,32 @@ function pushbutton4_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton4 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-if handles.pageCount <= 7
-    handles.pageCount = handles.pageCount + 1;
+handles.pageCount = handles.pageCount + 1;
+if handles.pageCount <= 30
+    currCustom = mod(handles.pageCount, 10);
+    if currCustom == 0
+        currCustom = 10;
+    end
     axes(handles.axes1);
-    imshow(handles.testSet1.images{handles.pageCount}, []);
+    imshow(handles.custom{currCustom}, []);
     axes(handles.axes2);
-    imshow(handles.testSet2.images{handles.pageCount}, []);
+    if handles.pageCount <= 10
+        imshow(handles.original{handles.pageCount}, []);
+    elseif handles.pageCount <= 20
+        imshow(handles.google{handles.pageCount - 10}, []);
+    else
+        imshow(handles.photoshop{handles.pageCount - 20}, []);
+    end
 else
-    handles.pageCount = 7;
+    handles.pageCount = 30;
 end
 guidata(hObject, handles);
 
-function struct = loadImsAndParams(currentPage)
-struct = load(['test_sets/testSet_' int2str(currentPage)]);
+function [orig, cust, goog, PS] = loadImCellArrays()
+orig = load('Test_images/original_images');
+cust = load('Test_images/custom_images');
+goog = load('Test_images/google_images');
+PS = load('Test_images/photoshop_images');
 
 function imout = makeBorder(imin, width)
 
@@ -160,7 +204,7 @@ imout = imin;
 
 function checkdone(handles)
 if all(abs(handles.outparams))
-     testResults = handles.outparams;
+    testResults = handles.outparams;
     save('testResults','testResults')
     close(handles.figure1)
 end

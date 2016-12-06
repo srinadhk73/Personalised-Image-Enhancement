@@ -51,13 +51,13 @@ function traininggui_OpeningFcn(hObject, eventdata, handles, varargin)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 % varargin   command line arguments to traininggui (see VARARGIN)
-handles.outparams = zeros(25, 5);
-handles.clicked = zeros(1,25);
+handles.outparams = zeros(20, 4);
+handles.clicked = zeros(1,20);
 handles.pageCount = 1;
 textLabel = sprintf('Training Image: %s', int2str(handles.pageCount));
 set(handles.text4, 'String', textLabel);
 temp = loadImsAndParams(handles.pageCount);
-testSet = temp.testSet;
+testSet = temp.training_images;
 displayIms(handles, testSet, 0);
 
 % Choose default command line output for traininggui
@@ -113,12 +113,12 @@ function pushbutton1_Callback(hObject, eventdata, handles)
 
 handles.pageCount = handles.pageCount + 1;
 
-if handles.pageCount <= 25
+if handles.pageCount <= 20
     temp = loadImsAndParams(handles.pageCount);
-    testSet = temp.testSet;
+    testSet = temp.training_images;
     displayIms(handles, testSet, 0);
 else
-    handles.pageCount = 25;
+    handles.pageCount = 20;
 end
 textLabel = sprintf('Training Image: %s', int2str(handles.pageCount));
 set(handles.text4, 'String', textLabel);
@@ -132,7 +132,7 @@ function pushbutton2_Callback(hObject, eventdata, handles)
 handles.pageCount = handles.pageCount - 1;
 if handles.pageCount >= 1
     temp = loadImsAndParams(handles.pageCount);
-    testSet = temp.testSet;
+    testSet = temp.training_images;
     displayIms(handles, testSet, 0);
 else
     handles.pageCount = 1;
@@ -150,11 +150,11 @@ function pushbutton14_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 temp = loadImsAndParams(handles.pageCount);
-testSet = temp.testSet;
+testSet = temp.training_images;
 axes(handles.axes2);
 imshow(makeBorder(testSet.images{1},10), []);
 displayIms(handles, testSet, 1);
-handles.outparams(handles.pageCount, :) = testSet.p{1};
+handles.outparams(handles.pageCount, :) = testSet.params{1};
 handles.clicked(handles.pageCount) = 1;
 guidata(hObject,handles);
 
@@ -166,11 +166,11 @@ function pushbutton15_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 temp = loadImsAndParams(handles.pageCount);
-testSet = temp.testSet;
+testSet = temp.training_images;
 axes(handles.axes3);
 imshow(makeBorder(testSet.images{2},10), []);
 displayIms(handles, testSet, 2);
-handles.outparams(handles.pageCount, :) = testSet.p{2};
+handles.outparams(handles.pageCount, :) = testSet.params{2};
 handles.clicked(handles.pageCount) = 1;
 guidata(hObject,handles);
 
@@ -181,11 +181,11 @@ function pushbutton16_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 temp = loadImsAndParams(handles.pageCount);
-testSet = temp.testSet;
+testSet = temp.training_images;
 axes(handles.axes4);
 imshow(makeBorder(testSet.images{3},10), []);
 displayIms(handles, testSet, 3);
-handles.outparams(handles.pageCount, :) = testSet.p{3};
+handles.outparams(handles.pageCount, :) = testSet.params{3};
 handles.clicked(handles.pageCount) = 1;
 guidata(hObject,handles);
 
@@ -196,11 +196,11 @@ function pushbutton17_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 temp = loadImsAndParams(handles.pageCount);
-testSet = temp.testSet;
+testSet = temp.training_images;
 axes(handles.axes5);
 imshow(makeBorder(testSet.images{4},10), []);
 displayIms(handles, testSet, 4);
-handles.outparams(handles.pageCount, :) = testSet.p{4};
+handles.outparams(handles.pageCount, :) = testSet.params{4};
 handles.clicked(handles.pageCount) = 1;
 guidata(hObject,handles);
 
@@ -211,11 +211,11 @@ function pushbutton18_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 temp = loadImsAndParams(handles.pageCount);
-testSet = temp.testSet;
+testSet = temp.training_images;
 axes(handles.axes6);
 imshow(makeBorder(testSet.images{5},10), []);
 displayIms(handles, testSet, 5);
-handles.outparams(handles.pageCount, :) = testSet.p{5};
+handles.outparams(handles.pageCount, :) = testSet.params{5};
 handles.clicked(handles.pageCount) = 1;
 guidata(hObject,handles);
 
@@ -226,11 +226,11 @@ function pushbutton19_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 temp = loadImsAndParams(handles.pageCount);
-testSet = temp.testSet;
+testSet = temp.training_images;
 axes(handles.axes7);
 imshow(makeBorder(testSet.images{6},10), []);
 displayIms(handles, testSet, 6);
-handles.outparams(handles.pageCount, :) = testSet.p{6};
+handles.outparams(handles.pageCount, :) = testSet.params{6};
 handles.clicked(handles.pageCount) = 1;
 guidata(hObject,handles);
 
@@ -241,11 +241,11 @@ function pushbutton20_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 temp = loadImsAndParams(handles.pageCount);
-testSet = temp.testSet;
+testSet = temp.training_images;
 axes(handles.axes8);
 imshow(makeBorder(testSet.images{7},10), []);
 displayIms(handles, testSet, 7);
-handles.outparams(handles.pageCount, :) = testSet.p{7};
+handles.outparams(handles.pageCount, :) = testSet.params{7};
 handles.clicked(handles.pageCount) = 1;
 guidata(hObject,handles);
 
@@ -256,11 +256,11 @@ function pushbutton21_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 temp = loadImsAndParams(handles.pageCount);
-testSet = temp.testSet;
+testSet = temp.training_images;
 axes(handles.axes9);
 imshow(makeBorder(testSet.images{8},10), []);
 displayIms(handles, testSet, 8);
-handles.outparams(handles.pageCount, :) = testSet.p{8};
+handles.outparams(handles.pageCount, :) = testSet.params{8};
 handles.clicked(handles.pageCount) = 1;
 guidata(hObject,handles);
 
@@ -272,11 +272,11 @@ function pushbutton22_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 temp = loadImsAndParams(handles.pageCount);
-testSet = temp.testSet;
+testSet = temp.training_images;
 axes(handles.axes10);
 imshow(makeBorder(testSet.images{9},10), []);
 displayIms(handles, testSet, 9);
-handles.outparams(handles.pageCount, :) = testSet.p{9};
+handles.outparams(handles.pageCount, :) = testSet.params{9};
 handles.clicked(handles.pageCount) = 1;
 guidata(hObject,handles);
 
@@ -297,7 +297,7 @@ function pushbutton24_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton24 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-pages = 1:25;
+pages = 1:20;
 pagesNotSelected = pages(~handles.clicked);
 if isempty(pagesNotSelected)
     'You have selected all preferences. You may press finish training!'
@@ -319,7 +319,7 @@ imin(:, end: -1: end - width, 2) = imin(:, end: -1: end - width, 2) + 255;
 imout = imin;
 
 function struct = loadImsAndParams(currentPage)
-struct = load(['test_sets/testSet_' int2str(currentPage)]);
+struct = load(['resized_Training_Sets_7_5/training_data_' int2str(currentPage)]);
 
 function displayIms(handles, testSet, noDisp)
 if noDisp ~= 1

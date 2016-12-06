@@ -6,7 +6,7 @@ opt_ind = zeros(num_img, 1);
 SU = zeros(size(K,1),1);
 for n = 1:num_img
     n
-    maxf = realmin;
+    maxf = -realmax;
     for i = 1:size(K,1)
         if (SU(i)==0)
             ind_i = zeros(size(K,1),1); ind_i(i) = 1;

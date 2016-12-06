@@ -22,7 +22,7 @@ function varargout = testguiTemplate(varargin)
 
 % Edit the above text to modify the response to help testguiTemplate
 
-% Last Modified by GUIDE v2.5 03-Dec-2016 22:33:40
+% Last Modified by GUIDE v2.5 05-Dec-2016 23:48:28
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -54,10 +54,10 @@ function testguiTemplate_OpeningFcn(hObject, eventdata, handles, varargin)
 handles.outparams = zeros(1, 30);
 handles.pageCount = 1;
 [orig, cust, goog, PS] = loadImCellArrays();
-handles.original = orig;
-handles.custom = cust;
-handles.google = goog;
-handles.photoshop = PS;
+handles.original = orig.images;
+handles.custom = cust.images;
+handles.google = goog.images;
+handles.photoshop = PS.images;
 axes(handles.axes1);
 imshow(handles.custom{handles.pageCount}, []);
 axes(handles.axes2);
@@ -185,10 +185,10 @@ end
 guidata(hObject, handles);
 
 function [orig, cust, goog, PS] = loadImCellArrays()
-orig = load('Test_images/original_images');
-cust = load('Test_images/custom_images');
-goog = load('Test_images/google_images');
-PS = load('Test_images/photoshop_images');
+orig = load('Final_Test_Images/original_images');
+cust = load('Final_Test_Images/custom_images');
+goog = load('Final_Test_Images/google_images');
+PS = load('Final_Test_Images/photoshop_images');
 
 function imout = makeBorder(imin, width)
 
@@ -205,6 +205,12 @@ imout = imin;
 function checkdone(handles)
 if all(abs(handles.outparams))
     testResults = handles.outparams;
-    save('testResults','testResults')
+    temp = testResults(1:10);
+    nums_custom(1) = sum(temp==1);
+    temp = testResults(11:20);
+    nums_custom(2) = sum(temp==1);
+    temp = testResults(21:30);
+    nums_custom(3) = sum(temp==1);
+    save('testResults','nums_custom')
     close(handles.figure1)
 end

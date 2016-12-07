@@ -22,7 +22,7 @@ function varargout = testguiTemplate(varargin)
 
 % Edit the above text to modify the response to help testguiTemplate
 
-% Last Modified by GUIDE v2.5 05-Dec-2016 23:48:28
+% Last Modified by GUIDE v2.5 06-Dec-2016 17:09:47
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -130,6 +130,30 @@ end
 guidata(hObject, handles);
 checkdone(handles)
 
+%no preference
+% --- Executes on button press in pushbutton5.
+function pushbutton5_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton5 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+handles.outparams(handles.pageCount) = 2;
+axes(handles.axes1);
+currCustom = mod(handles.pageCount, 10);
+if currCustom == 0
+    currCustom = 10;
+end
+imshow(handles.custom{currCustom}, []);
+axes(handles.axes2);
+if handles.pageCount <= 10
+    imshow(handles.original{handles.pageCount}, []);
+elseif handles.pageCount <= 20
+    imshow(handles.google{handles.pageCount - 10}, []);
+else
+    imshow(handles.photoshop{handles.pageCount - 20}, []);
+end
+guidata(hObject, handles);
+checkdone(handles)
+
 %previous image
 % --- Executes on button press in pushbutton3.
 function pushbutton3_Callback(hObject, eventdata, handles)
@@ -184,6 +208,7 @@ else
 end
 guidata(hObject, handles);
 
+
 function [orig, cust, goog, PS] = loadImCellArrays()
 orig = load('Final_Test_Images/original_images');
 cust = load('Final_Test_Images/custom_images');
@@ -207,10 +232,17 @@ if all(abs(handles.outparams))
     testResults = handles.outparams;
     temp = testResults(1:10);
     nums_custom(1) = sum(temp==1);
+    nums_no_pref(1) = sum(temp==2);
     temp = testResults(11:20);
     nums_custom(2) = sum(temp==1);
+    nums_no_pref(2) = sum(temp==2);
     temp = testResults(21:30);
     nums_custom(3) = sum(temp==1);
-    save('testResults','nums_custom')
+    nums_no_pref(3) = sum(temp==2);
+    results.custom = nums_custom;
+    results.noPref = nums_no_pref;
+    save('testResults','results')
     close(handles.figure1)
 end
+
+

@@ -151,9 +151,9 @@ function pushbutton14_Callback(hObject, eventdata, handles)
 
 temp = loadImsAndParams(handles.pageCount);
 testSet = temp.training_images;
+displayIms(handles, testSet, 1);
 axes(handles.axes2);
 imshow(makeBorder(testSet.images{1},10), []);
-displayIms(handles, testSet, 1);
 handles.outparams(handles.pageCount, :) = testSet.params{1};
 handles.clicked(handles.pageCount) = 1;
 guidata(hObject,handles);
@@ -167,9 +167,9 @@ function pushbutton15_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 temp = loadImsAndParams(handles.pageCount);
 testSet = temp.training_images;
+displayIms(handles, testSet, 2);
 axes(handles.axes3);
 imshow(makeBorder(testSet.images{2},10), []);
-displayIms(handles, testSet, 2);
 handles.outparams(handles.pageCount, :) = testSet.params{2};
 handles.clicked(handles.pageCount) = 1;
 guidata(hObject,handles);
@@ -182,9 +182,9 @@ function pushbutton16_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 temp = loadImsAndParams(handles.pageCount);
 testSet = temp.training_images;
+displayIms(handles, testSet, 3);
 axes(handles.axes4);
 imshow(makeBorder(testSet.images{3},10), []);
-displayIms(handles, testSet, 3);
 handles.outparams(handles.pageCount, :) = testSet.params{3};
 handles.clicked(handles.pageCount) = 1;
 guidata(hObject,handles);
@@ -197,9 +197,9 @@ function pushbutton17_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 temp = loadImsAndParams(handles.pageCount);
 testSet = temp.training_images;
+displayIms(handles, testSet, 4);
 axes(handles.axes5);
 imshow(makeBorder(testSet.images{4},10), []);
-displayIms(handles, testSet, 4);
 handles.outparams(handles.pageCount, :) = testSet.params{4};
 handles.clicked(handles.pageCount) = 1;
 guidata(hObject,handles);
@@ -212,9 +212,9 @@ function pushbutton18_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 temp = loadImsAndParams(handles.pageCount);
 testSet = temp.training_images;
+displayIms(handles, testSet, 5);
 axes(handles.axes6);
 imshow(makeBorder(testSet.images{5},10), []);
-displayIms(handles, testSet, 5);
 handles.outparams(handles.pageCount, :) = testSet.params{5};
 handles.clicked(handles.pageCount) = 1;
 guidata(hObject,handles);
@@ -227,9 +227,9 @@ function pushbutton19_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 temp = loadImsAndParams(handles.pageCount);
 testSet = temp.training_images;
+displayIms(handles, testSet, 6);
 axes(handles.axes7);
 imshow(makeBorder(testSet.images{6},10), []);
-displayIms(handles, testSet, 6);
 handles.outparams(handles.pageCount, :) = testSet.params{6};
 handles.clicked(handles.pageCount) = 1;
 guidata(hObject,handles);
@@ -242,9 +242,9 @@ function pushbutton20_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 temp = loadImsAndParams(handles.pageCount);
 testSet = temp.training_images;
+displayIms(handles, testSet, 7);
 axes(handles.axes8);
 imshow(makeBorder(testSet.images{7},10), []);
-displayIms(handles, testSet, 7);
 handles.outparams(handles.pageCount, :) = testSet.params{7};
 handles.clicked(handles.pageCount) = 1;
 guidata(hObject,handles);
@@ -257,9 +257,9 @@ function pushbutton21_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 temp = loadImsAndParams(handles.pageCount);
 testSet = temp.training_images;
+displayIms(handles, testSet, 8);
 axes(handles.axes9);
 imshow(makeBorder(testSet.images{8},10), []);
-displayIms(handles, testSet, 8);
 handles.outparams(handles.pageCount, :) = testSet.params{8};
 handles.clicked(handles.pageCount) = 1;
 guidata(hObject,handles);
@@ -273,9 +273,9 @@ function pushbutton22_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 temp = loadImsAndParams(handles.pageCount);
 testSet = temp.training_images;
+displayIms(handles, testSet, 9);
 axes(handles.axes10);
 imshow(makeBorder(testSet.images{9},10), []);
-displayIms(handles, testSet, 9);
 handles.outparams(handles.pageCount, :) = testSet.params{9};
 handles.clicked(handles.pageCount) = 1;
 guidata(hObject,handles);

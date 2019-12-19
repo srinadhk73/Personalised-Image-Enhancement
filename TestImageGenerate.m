@@ -3,7 +3,7 @@ load('userParams.mat');
 desiredNumPixels = 640*480;
 for i=1:10
     i
-    I = im2double(imread(['TestImages\' num2str(i) '.jpg']));
+    I = im2double(imread(['TestImages/' num2str(i) '.jpg']));
     I = I.^(2.2);
     I = autopreprocess(I);
     I = process_image(I, userParams(correspondences(i),:));
